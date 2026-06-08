@@ -1,0 +1,144 @@
+import Link from "next/link";
+import Image from "next/image";
+
+const displayFont = {
+  className: ""
+};
+
+const headlineLines = [
+  { text: "Hi, I'm Nicole.", intro: true, muted: false },
+  { text: "Frontend Developer &", intro: false, muted: false },
+  { text: "UI/UX Designer.", intro: false, muted: true }
+];
+
+function HeroDecorations() {
+  return (
+    <>
+      <svg
+        className="pointer-events-none absolute -left-8 top-24 hidden h-48 w-48 text-[#111111] opacity-[0.06] sm:block lg:h-64 lg:w-64"
+        viewBox="0 0 240 240"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M12 180C48 92 36 168 20C132 72 108 128 12 180Z"
+          stroke="currentColor"
+          strokeWidth="1.2"
+        />
+        <path
+          d="M28 196C72 108 118 58 196 42"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
+      </svg>
+      <svg
+        className="pointer-events-none absolute -right-6 bottom-16 h-56 w-56 text-[#111111] opacity-[0.05] sm:h-72 sm:w-72"
+        viewBox="0 0 280 280"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M268 48C196 88 132 148 88 248"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M248 72C188 108 136 162 104 252"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
+      </svg>
+      <svg
+        className="pointer-events-none absolute right-[18%] top-[12%] h-32 w-32 text-[#111111] opacity-[0.04] lg:h-40 lg:w-40"
+        viewBox="0 0 160 160"
+        fill="none"
+        aria-hidden="true"
+      >
+        <circle cx="80" cy="80" r="58" stroke="currentColor" strokeWidth="1" />
+        <path d="M22 80C52 52 108 52 138 80" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+      </svg>
+    </>
+  );
+}
+
+export default function HeroSection() {
+  return (
+    <section
+      className="relative min-h-[calc(100vh-72px)] overflow-hidden bg-[#F5F3F0] dark:bg-[#0e0e10]"
+      aria-label="Introduction"
+    >
+      <HeroDecorations />
+
+      <div className="relative mx-auto flex min-h-[calc(100vh-72px)] w-full max-w-[1320px] items-center px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+        <div className="grid w-full items-center gap-12 md:gap-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16 xl:gap-24">
+          <div className="order-1 mx-auto max-w-xl text-center lg:order-none lg:mx-0 lg:max-w-none lg:text-left">
+            <h1
+              className={`${displayFont.className} m-0 max-w-[14ch] text-[#111111] dark:text-white`}
+            >
+              {headlineLines.map((line, index) => (
+                <span
+                  key={line.text}
+                  className={`block animate-[hero-fade-up_0.85s_ease_both] ${
+                    line.intro
+                      ? "mb-4 text-[clamp(1.35rem,2.4vw,2rem)] font-normal leading-snug tracking-[-0.01em]"
+                      : "text-[clamp(2.75rem,6.2vw,5.25rem)] font-medium leading-[1.02] tracking-[-0.025em]"
+                  } ${line.muted ? "text-[#6B6560] dark:text-[#a0a0a0]" : ""}`}
+                  style={{ animationDelay: `${120 + index * 110}ms` }}
+                >
+                  {line.text}
+                </span>
+              ))}
+            </h1>
+
+            <p
+              className="mx-auto mt-7 max-w-[34rem] animate-[hero-fade-up_0.85s_ease_both] text-[0.98rem] leading-[1.8] text-[#6B6560] dark:text-[#a0a0a0] sm:mt-8 sm:text-[1.02rem] lg:mx-0"
+              style={{ animationDelay: "340ms" }}
+            >
+              I design and build modern digital experiences that combine creativity, usability, and performance.
+            </p>
+
+            <div
+              className="mt-9 flex animate-[hero-fade-up_0.85s_ease_both] flex-wrap items-center justify-center gap-3.5 sm:mt-10 lg:justify-start"
+              style={{ animationDelay: "460ms" }}
+            >
+              <Link
+                href="/projects"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-md bg-[#4A4540] px-6 text-[0.82rem] font-semibold tracking-[0.01em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#3A3632] hover:shadow-[0_12px_28px_rgba(74,69,64,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A4540] dark:bg-[#d4cfc8] dark:text-[#111111] dark:hover:bg-[#ece7e0]"
+              >
+                View Projects
+              </Link>
+              <Link
+                href="/nicole-resume.pdf"
+                download
+                className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-[#4A4540]/70 bg-transparent px-6 text-[0.82rem] font-semibold tracking-[0.01em] text-[#4A4540] transition duration-300 hover:-translate-y-0.5 hover:border-[#4A4540] hover:bg-[#4A4540]/[0.04] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A4540] dark:border-[#d4cfc8] dark:text-[#d4cfc8] dark:hover:bg-[#d4cfc8]/10"
+              >
+                Download Resume
+              </Link>
+            </div>
+          </div>
+
+          <div
+            className="order-2 flex justify-center lg:justify-end"
+            style={{ animationDelay: "280ms" }}
+          >
+            <div className="relative w-full max-w-[420px] animate-[hero-fade-up_1s_ease_both,hero-float_6s_ease-in-out_1s_infinite] sm:max-w-[460px] lg:max-w-[520px] xl:max-w-[560px]">
+              <div className="absolute -inset-3 rounded-[28px] bg-gradient-to-br from-[#111111]/[0.04] to-transparent dark:from-white/[0.05]" aria-hidden="true" />
+              <Image
+                className="relative h-auto w-full rounded-[22px] object-cover shadow-[0_28px_60px_rgba(17,17,17,0.14)] dark:shadow-[0_28px_60px_rgba(0,0,0,0.35)]"
+                src="/profile-portrait.svg"
+                alt="Nicole — Frontend Developer and UI/UX Designer"
+                width={720}
+                height={720}
+                priority
+                sizes="(max-width: 768px) 85vw, (max-width: 1200px) 42vw, 520px"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

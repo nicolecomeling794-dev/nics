@@ -1,0 +1,30 @@
+import Link from "next/link";
+
+export default function Footer() {
+  return (
+    <footer className="page-section">
+      <div className="footer-grid">
+        <Link href="/" className="footer-logo">
+          Nicole.dev
+        </Link>
+
+        <p className="footer-copy">
+          © {new Date().getFullYear()} Nicole.dev — Built with passion and precision.
+        </p>
+
+        <div className="footer-links">
+          <Link href="https://github.com" target="_blank" rel="noreferrer">
+            GitHub
+          </Link>
+          <Link href="https://linkedin.com" target="_blank" rel="noreferrer">
+            LinkedIn
+          </Link>
+          <Link href="/resume.pdf" target="_blank" rel="noreferrer">
+  Resume
+</Link>
+          </Link>
+        </div>
+      </div>
+    </footer>
+  );
+}
