@@ -13,7 +13,7 @@ export default function HeroSection() {
 
       <div className="hero-grid">
         <div className="hero-copy">
-          <p className="eyebrow">HELLO, I’M NICOLE.</p>
+          <p className="eyebrow">HELLO, I&apos;M NICOLE.</p>
           <h1>
             Aspiring Frontend Developer
             <br />
