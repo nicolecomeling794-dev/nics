@@ -4,18 +4,18 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/#about", label: "About" },
-  { href: "/#projects", label: "Projects" },
-  { href: "/#skills", label: "Skills" },
-  { href: "/contact", label: "Contact" }
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/skills", label: "Skills" },
+  { href: "/contact", label: "Contact" },
 ];
 
-function isActiveLink(pathname: string, asPath: string, href: string) {
+function isActiveLink(pathname: string, _asPath: string, href: string) {
   if (href === "/") {
-    return pathname === "/" && !asPath.includes("#");
+    return pathname === "/";
   }
-
-  return asPath === href;
+  // Exact match for all page routes (/about, /projects, /skills, /contact)
+  return pathname === href;
 }
 
 function NavLink({

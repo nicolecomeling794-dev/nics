@@ -14,7 +14,7 @@ export type MessagePayload = {
   message: string;
 };
 
-export type Profile = {
+export type myprofile = {
   name: string;
   role: string;
   summary: string;

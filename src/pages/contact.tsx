@@ -1,5 +1,4 @@
 import Head from "next/head";
-import ContactForm from "@/components/ContactForm";
 
 const contactLinks = [
   {
@@ -126,16 +125,6 @@ export default function ContactPage() {
 
         </div>
 
-        {/* ── Contact form — full-width below the two-column shell ── */}
-        <div className="contact-form-wrapper">
-          <div className="contact-form-inner">
-            <div className="contact-form-header">
-              <p className="contact-eyebrow">Send a Message</p>
-              <h2 className="contact-form-title">Prefer a direct message? Drop me a note.</h2>
-            </div>
-            <ContactForm />
-          </div>
-        </div>
       </section>
     </>
   );

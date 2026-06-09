@@ -111,11 +111,11 @@ export default function HeroSection() {
                 View Projects
               </Link>
               <Link
-                href="/nicole-resume.pdf"
+                href="/resume.pdf"
                 download
                 className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-[#4A4540]/70 bg-transparent px-6 text-[0.82rem] font-semibold tracking-[0.01em] text-[#4A4540] transition duration-300 hover:-translate-y-0.5 hover:border-[#4A4540] hover:bg-[#4A4540]/[0.04] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A4540] dark:border-[#d4cfc8] dark:text-[#d4cfc8] dark:hover:bg-[#d4cfc8]/10"
               >
-                Download Resume
+                Download Resume.pdf
               </Link>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function HeroSection() {
               <div className="absolute -inset-3 rounded-[28px] bg-gradient-to-br from-[#111111]/[0.04] to-transparent dark:from-white/[0.05]" aria-hidden="true" />
               <Image
                 className="relative h-auto w-full rounded-[22px] object-cover shadow-[0_28px_60px_rgba(17,17,17,0.14)] dark:shadow-[0_28px_60px_rgba(0,0,0,0.35)]"
-                src="/profile-portrait.svg"
+                src="/myprofile-portrait.svg"
                 alt="Nicole — Frontend Developer and UI/UX Designer"
                 width={720}
                 height={720}

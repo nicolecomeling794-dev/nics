@@ -1,70 +1,66 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import type { GetServerSideProps } from "next";
 import HeroSection from "@/components/HeroSection";
 import { fallbackProjects } from "@/data/projects";
+import type { Project } from "@/types";
 
-const technologies = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Tailwind CSS",
-  "Figma",
-  "Git"
-];
+const previewTechnologies = ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js"];
 
-const stats = [
-  { value: "4+", label: "Years Experience" },
-  { value: "24+", label: "Projects Completed" },
-  { value: "12+", label: "Happy Clients" }
-];
-
-const experience = [
+const previewSkillCards = [
   {
-    period: "Jun 2023 — Present",
-    title: "Frontend Developer",
-    company: "Studio Nimbus",
-    location: "Remote",
-    description:
-      "Lead premium interface builds with polished motion, elegant accessibility, and a refined component system for luxury digital brands."
+    title: "Frontend Development",
+    detail: "Responsive experiences with performance and polish.",
   },
   {
-    period: "Jan 2022 — Jun 2023",
-    title: "UI/UX Designer",
-    company: "Velora Labs",
-    location: "Remote",
-    description:
-      "Crafted brand-driven product experiences for digital platforms, balancing clarity, emotion, and premium conversion-focused layouts."
+    title: "UI/UX Design",
+    detail: "Intuitive design systems for meaningful product journeys.",
   },
   {
-    period: "May 2021 — Dec 2021",
-    title: "Web Developer",
-    company: "Lattice Creative",
-    location: "Remote",
-    description:
-      "Built responsive, component-first websites and polished landing pages for startups and boutique studios."
+    title: "React",
+    detail: "Component-driven architecture with modern interaction patterns.",
+  },
+  {
+    title: "Next.js",
+    detail: "SSR, static rendering, and premium page transitions.",
+  },
+];
+
+const contactPreviewLinks = [
+  { title: "LinkedIn", subtitle: "Professional connections", href: "https://linkedin.com" },
+  { title: "GitHub", subtitle: "Code and experiments", href: "https://github.com" },
+  { title: "Instagram", subtitle: "Design and studio work", href: "https://instagram.com/nics.codexie" },
+  { title: "Email", subtitle: "Project inquiries", href: "mailto:nicolecomeling794@gmail.com" },
+];
+
+type HomePageProps = {
+  projects: Project[];
+};
+
+export const getServerSideProps: GetServerSideProps<HomePageProps> = async ({ req }) => {
+  try {
+    const protocol = req.headers["x-forwarded-proto"] ?? "http";
+    const host = req.headers.host ?? "localhost:3000";
+    const baseUrl = `${protocol}://${host}`;
+
+    const res = await fetch(`${baseUrl}/api/projects`);
+
+    if (!res.ok) {
+      return { props: { projects: fallbackProjects.slice(0, 3) } };
+    }
+
+    const data = await res.json();
+    const projects: Project[] = (data.projects ?? fallbackProjects).slice(0, 3);
+    return { props: { projects } };
+  } catch {
+    return { props: { projects: fallbackProjects.slice(0, 3) } };
   }
-];
+};
 
-const skillCards = [
-  { title: "Frontend Development", detail: "Designing responsive experiences with performance, polish, and thoughtful interactions." },
-  { title: "UI/UX Design", detail: "Creating intuitive design systems for meaningful product journeys and high-end brand expression." },
-  { title: "Next.js", detail: "SSR, static rendering, and premium page transitions for modern web experiences." },
-  { title: "React", detail: "Component-driven architecture with modern interaction patterns and clean state management." },
-  { title: "TypeScript", detail: "Type-safe interfaces for scalable frontend code and long-term maintainability." },
-  { title: "Figma", detail: "High-fidelity UI systems, interactive prototypes, and polished brand foundations." },
-  { title: "Tailwind CSS", detail: "Elegant utility-first styling for refined, consistent, and responsive layouts." },
-  { title: "Git", detail: "Version-controlled delivery with collaborative workflow discipline and polished release flow." }
-];
-
-
-
-export default function HomePage() {
-  const featuredProject = fallbackProjects[0];
-  const projectCards = fallbackProjects.slice(1);
+export default function HomePage({ projects }: HomePageProps) {
+  const featuredProject = projects[0];
+  const previewProjects = projects.slice(1);
 
   return (
     <>
@@ -72,28 +68,22 @@ export default function HomePage() {
         <title>Nicole.dev | Frontend Developer & UI/UX Designer</title>
         <meta
           name="description"
-          content="Nicole is an aspiring frontend developer and UI/UX designer building clean, responsive web experiences. Available for internships and freelance work."
+          content="Nicole — aspiring frontend developer and UI/UX designer crafting premium, responsive digital experiences."
         />
-        <meta property="og:title" content="Nicole.dev | Frontend Developer & UI/UX Designer" />
-        <meta
-          property="og:description"
-          content="Nicole is an aspiring frontend developer and UI/UX designer building clean, responsive web experiences."
-        />
-        <meta property="og:type" content="website" />
       </Head>
 
       <HeroSection />
 
-      <section className="section about-section" id="about">
+      {/* ── About Preview ── */}
+      <section className="section about-preview-section" id="about">
         <div className="about-grid">
           <div className="about-visual">
             <div className="about-frame">
               <Image
                 src="/myprofile.png"
-                alt="Nicole portrait"
+                alt="Portrait of Nicole"
                 width={760}
                 height={920}
-                priority
                 className="about-image"
               />
             </div>
@@ -102,98 +92,69 @@ export default function HomePage() {
           <div className="about-copy">
             <div className="section-heading">
               <p className="section-eyebrow">About</p>
-              <h2>Building digital experiences while growing as a Computer Science student.</h2>
+              <h2>Designing elegant digital products with intention.</h2>
             </div>
-            <p>
-              I’m an aspiring developer and Computer Science student passionate about building clean, responsive, and user-friendly web experiences while continuously learning and improving my skills.
+            <p className="about-lead">
+              I&apos;m Nicole — an aspiring frontend developer and UI/UX designer based in the Philippines,
+              passionate about clean, responsive web experiences that feel polished and purposeful.
             </p>
 
-            <div className="stats-grid">
-              {stats.map((item) => (
-                <article key={item.label} className="stat-card">
-                  <strong>{item.value}</strong>
-                  <span>{item.label}</span>
-                </article>
-              ))}
+            <div className="preview-cta">
+              <Link href="/about" className="button button-primary">
+                View Full About
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section experience-section" id="experience">
-        <div className="section-heading">
-          <p className="section-eyebrow">Experience</p>
-          <h2>Timeline of curated design and frontend work.</h2>
-        </div>
-
-        <div className="timeline-list">
-          {experience.map((item) => (
-            <article key={item.title} className="timeline-item">
-              <div className="timeline-meta">
-                <span>{item.period}</span>
-                <strong>{item.title}</strong>
-                <p>{item.company} • {item.location}</p>
-              </div>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section skills-section" id="skills">
-        <div className="section-heading">
-          <p className="section-eyebrow">Skills</p>
-          <h2>Modern tools and polished systems that power every project.</h2>
-        </div>
-
-        <div className="skills-panel">
-          {technologies.map((technology) => (
-            <span key={technology} className="skill-pill">
-              {technology}
-            </span>
-          ))}
-        </div>
-
-        <div className="skill-card-grid">
-          {skillCards.map((card) => (
-            <article key={card.title} className="skill-card">
-              <h3>{card.title}</h3>
-              <p>{card.detail}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section projects-section" id="projects">
+      {/* ── Projects Preview ── */}
+      <section className="section projects-preview-section" id="projects">
         <div className="section-heading">
           <p className="section-eyebrow">Projects</p>
           <h2>Selected work that blends design, motion, and performance.</h2>
         </div>
 
         <div className="projects-grid">
-          <article className="featured-project-card">
-            <div className="project-tag">Featured</div>
-            <h3>{featuredProject.title}</h3>
-            <p>{featuredProject.description}</p>
-            <div className="project-tags">
-              {featuredProject.techStack.map((technology) => (
-                <span key={technology} className="project-tag">
-                  {technology}
-                </span>
-              ))}
-            </div>
-            <div className="project-actions">
-              <a href={featuredProject.liveLink} target="_blank" rel="noreferrer" className="project-action-link">
-                View Live
-              </a>
-              <a href={featuredProject.githubLink} target="_blank" rel="noreferrer" className="project-action-link">
-                View Code
-              </a>
-            </div>
-          </article>
+          {featuredProject && (
+            <article className="featured-project-card">
+              <div className="project-tag">Featured</div>
+              <h3>{featuredProject.title}</h3>
+              <p>{featuredProject.description}</p>
+              <div className="project-tags">
+                {featuredProject.techStack.map((technology) => (
+                  <span key={technology} className="project-tag">
+                    {technology}
+                  </span>
+                ))}
+              </div>
+              <div className="project-actions">
+                {featuredProject.liveLink && (
+                  <a
+                    href={featuredProject.liveLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="project-action-link"
+                  >
+                    View Live
+                  </a>
+                )}
+                {featuredProject.githubLink && (
+                  <a
+                    href={featuredProject.githubLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="project-action-link"
+                  >
+                    View Code
+                  </a>
+                )}
+              </div>
+            </article>
+          )}
 
           <div className="project-column-grid">
-            {projectCards.map((project) => (
+            {previewProjects.map((project) => (
               <article key={project.id} className="project-card">
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
@@ -205,20 +166,107 @@ export default function HomePage() {
                   ))}
                 </div>
                 <div className="project-actions">
-                  <a href={project.liveLink} target="_blank" rel="noreferrer" className="project-action-link">
-                    Live
-                  </a>
-                  <a href={project.githubLink} target="_blank" rel="noreferrer" className="project-action-link">
-                    Code
-                  </a>
+                  {project.liveLink && (
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="project-action-link"
+                    >
+                      Live
+                    </a>
+                  )}
+                  {project.githubLink && (
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="project-action-link"
+                    >
+                      Code
+                    </a>
+                  )}
                 </div>
               </article>
             ))}
           </div>
         </div>
+
+        <div className="preview-cta">
+          <Link href="/projects" className="button button-secondary">
+            View All Projects
+          </Link>
+        </div>
       </section>
 
-     
+      {/* ── Skills Preview ── */}
+      <section className="section skills-preview-section" id="skills">
+        <div className="section-heading">
+          <p className="section-eyebrow">Skills</p>
+          <h2>Modern tools that power every project.</h2>
+        </div>
+
+        <div className="skills-panel">
+          {previewTechnologies.map((technology) => (
+            <span key={technology} className="skill-pill">
+              {technology}
+            </span>
+          ))}
+          <span className="skill-pill skill-pill--more">+3 more</span>
+        </div>
+
+        <div className="skill-card-grid skills-preview-cards">
+          {previewSkillCards.map((card) => (
+            <article key={card.title} className="skill-card">
+              <h3>{card.title}</h3>
+              <p>{card.detail}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="preview-cta">
+          <Link href="/skills" className="button button-secondary">
+            View All Skills
+          </Link>
+        </div>
+      </section>
+
+      {/* ── Contact Preview ── */}
+      <section className="section contact-preview-section" id="contact">
+        <div className="section-heading">
+          <p className="section-eyebrow">Contact</p>
+          <h2>Let&apos;s connect and build something exceptional.</h2>
+        </div>
+
+        <p className="contact-preview-lead">
+          Open to internship opportunities, freelance projects, and collaborations.
+          Reach out — I&apos;d love to hear from you.
+        </p>
+
+        <div className="contact-preview-grid">
+          {contactPreviewLinks.map((item) => (
+            <a
+              key={item.title}
+              href={item.href}
+              target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+              rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
+              className="contact-card"
+            >
+              <div>
+                <span className="contact-card-label">{item.title}</span>
+                <p className="contact-card-sub">{item.subtitle}</p>
+              </div>
+              <span className="contact-arrow">→</span>
+            </a>
+          ))}
+        </div>
+
+        <div className="preview-cta">
+          <Link href="/contact" className="button button-primary">
+            Contact Me
+          </Link>
+        </div>
+      </section>
     </>
   );
 }

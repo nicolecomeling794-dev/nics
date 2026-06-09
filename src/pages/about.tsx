@@ -2,38 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 
-const skills = [
-  "HTML", "CSS", "JavaScript", "TypeScript",
-  "React", "Next.js", "Tailwind CSS", "Figma", "Git",
-];
-
-const experience = [
-  {
-    period: "Jun 2023 — Present",
-    title: "Frontend Developer",
-    company: "Studio Nimbus",
-    location: "Remote",
-    description:
-      "Lead premium interface builds with polished motion, elegant accessibility, and a refined component system for luxury digital brands.",
-  },
-  {
-    period: "Jan 2022 — Jun 2023",
-    title: "UI/UX Designer",
-    company: "Velora Labs",
-    location: "Remote",
-    description:
-      "Crafted brand-driven product experiences for digital platforms, balancing clarity, emotion, and premium conversion-focused layouts.",
-  },
-  {
-    period: "May 2021 — Dec 2021",
-    title: "Web Developer",
-    company: "Lattice Creative",
-    location: "Remote",
-    description:
-      "Built responsive, component-first websites and polished landing pages for startups and boutique studios.",
-  },
-];
-
 const stats = [
   { value: "4+", label: "Years Experience" },
   { value: "24+", label: "Projects Completed" },
@@ -51,8 +19,7 @@ export default function AboutPage() {
         />
       </Head>
 
-      {/* ── Hero ── */}
-      <section className="about-page-hero section">
+      <section className="section about-page-section">
         <div className="about-grid">
           <div className="about-visual">
             <div className="about-frame">
@@ -100,64 +67,6 @@ export default function AboutPage() {
                 </article>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Skills ── */}
-      <section className="section about-skills-section">
-        <div className="section-heading">
-          <p className="section-eyebrow">Skills</p>
-          <h2>Tools and technologies I work with.</h2>
-        </div>
-        <div className="skills-panel">
-          {skills.map((skill) => (
-            <span key={skill} className="skill-pill">
-              {skill}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Experience ── */}
-      <section className="section about-experience-section">
-        <div className="section-heading">
-          <p className="section-eyebrow">Experience</p>
-          <h2>Timeline of curated design and frontend work.</h2>
-        </div>
-
-        <div className="timeline-list">
-          {experience.map((item) => (
-            <article key={item.title} className="timeline-item">
-              <div className="timeline-meta">
-                <span>{item.period}</span>
-                <strong>{item.title}</strong>
-                <p>
-                  {item.company} &bull; {item.location}
-                </p>
-              </div>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="section about-cta-section">
-        <div className="about-cta-card">
-          <p className="section-eyebrow">Ready to collaborate?</p>
-          <h2>Let&apos;s build something exceptional together.</h2>
-          <p>
-            I&apos;m open to internship opportunities, freelance projects, and long-term collaborations.
-            Reach out and let&apos;s talk.
-          </p>
-          <div className="about-actions">
-            <Link href="/contact" className="button button-primary">
-              Contact Me
-            </Link>
-            <Link href="/projects" className="button button-secondary">
-              View Projects
-            </Link>
           </div>
         </div>
       </section>

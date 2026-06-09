@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import type { Profile } from "@/types";
+import type { myprofile } from "@/types";
 
-const profile: Profile = {
+const myprofile: myprofile = {
   name: "MyPortfolio",
   role: "Full-stack developer",
   summary: "A portfolio system built with React, Next.js API routes, and PostgreSQL.",
@@ -14,5 +14,5 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(405).json({ message: "Method not allowed." });
   }
 
-  return res.status(200).json({ profile });
+  return res.status(200).json({ myprofile });
 }

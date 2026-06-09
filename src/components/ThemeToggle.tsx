@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 const storageKey = "portfolio-theme";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem(storageKey);
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initialTheme = savedTheme === "dark" || (!savedTheme && prefersDark) ? "dark" : "light";
+    const initialTheme = savedTheme === "light" ? "light" : "dark";
 
     setTheme(initialTheme);
     document.documentElement.dataset.theme = initialTheme;

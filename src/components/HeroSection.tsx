@@ -24,7 +24,7 @@ export default function HeroSection() {
           </p>
 
           <div className="hero-actions">
-            <Link href="#projects" className="button button-primary">
+            <Link href="/projects" className="button button-primary">
               View Projects
             </Link>
             <a href="/resume.pdf" download className="button button-secondary">
@@ -33,7 +33,7 @@ export default function HeroSection() {
           </div>
 
           <div className="hero-socials">
-            <span className="hero-socials-label">Let's connect togetherhgg</span>
+            <span className="hero-socials-label">Let&apos;s connect</span>
             <div className="hero-socials-icons">
               <a className="hero-social-icon-link" href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="currentColor">
